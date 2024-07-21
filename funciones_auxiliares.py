@@ -1,12 +1,20 @@
 import time
 import os
-#verificacion que todo funcione bien
+from datetime import datetime
+
+# --------------- FUNCIONES EXTRAS -------------------------
 def limpiar():
     os.system('cls')
 
+def fecha_hoy() -> str:
+    fecha_h = datetime.now()# Obtener la fecha de hoy
+    fecha_hf = fecha_h.strftime('%Y-%m-%d')# Formatear la fecha
+    return fecha_hf
+
+
 #--------------- CALCULOS -----------------------------
 #comprueba el tamaño de la ventana del cmd
-def tamaño():
+def tamaño() -> int:
     ancho = ''
     altura = ''
 
@@ -43,123 +51,85 @@ def tamaño():
     return ancho, altura
 
 #cantidad de apostrofe
-def tamaño0(ancho):
-    signo0 = ''    
-    for i in range(ancho):
-        signo0 += '-'
-    
-    return signo0
+def tamaño_general(ancho) -> bool:
+    if ancho < 100:
+        tamaño_g = False
+    elif ancho >= 110:
+        tamaño_g = True
+    return tamaño_g 
 
-#cantidad de espacios
-def tamaño00(signo0):
-    signo00 = ''
-    
-    if len(signo0) <= 120:
-        signo0 = len(signo0) // 3
+def calculo_par(x):
+    if x % 2 == 0:
+        return True
     else:
-        signo0 = int(len(signo0) // 2.5)
+        return False
 
-    for i in range(signo0 - 2):
-        signo00 += ' '
-
-    return signo00
-
-
-
-#------------- VALIDACIONES --------------------
-#inicio del sistemas
-def Validacion_texto_0():
-    x = input(': ').lower()
-    while x != 's' and x != 'n':
-        print('\nIngreso Erroneo')
-        x = input(': ').lower()
-    return x
-
-def Validacion_decicion_0():
-    while True:
-        try:
-            x = int(input(':'))
-            while x < 1 or x > 3:
-                print('\nIngreso Erroneo')
-                x = int(input(':'))
-        except ValueError:
-            print('\nIngreso Erroneo')
-            continue
-        return x
-        break
-
-def Validacion_decicion_1():
-    while True:
-        try:
-            x = int(input(':'))
-            while x < 1 or x > 2:
-                print('\nIngreso Erroneo')
-                x = int(input(':'))
-        except ValueError:
-            print('\nIngreso Erroneo')
-            continue
-        return x
-        break
-
-#------------ VARIABLE PRE-CARGA ----------------
-x0 = '|\n|\n|\n|'
-#--------------- MENUS -------------------------
-def menu_principal():
-    limpiar()
-    print(signo0)#100 unidades
-    #print('|       |       |       |       |       |       |       |       |       |') # un tab son 7  espacios
-    print(x0,signo00,'PROTOTIPO 1 DEL SISTEMA DE REGISTRO DE COSTOS')
-    print('|\n|',signo00,'\t DESEA ABRIR EL SISTEMA [S/N]\n|')
-    print(x0,signo00,'\t\t\t\t\t\t hecho por el grupo #3')
-    print(signo0)
-
-def menu_final():
-    limpiar()
-    print(signo0)
-    print(x0,signo00,'\tGRACIAS POR ABRIR EL SISTEMA\n',x0)
-    print(signo0)
-
-def menu_inicio():
-    limpiar()
-    print(signo0)
-    print(x0,signo00,'\tBIENVENIDO AL SISTEMA')
-    print('| ',signo00,'ES SU PRIMERA VEZ CON EL SISTEMA [S/N]\n',x0, sep='')
-    print(signo0)
-    
-def menu_inicio_0():
-    limpiar()
-    print(signo0)
-    print(x0,signo00,'OPCIONES:\n',x0,signo00,'1  INGRESO DE DATOS\n','|',signo00,
-          '2  MODIFICACION DE DATOS\n','|',signo00,'3  VISUALIZACION DE INFORME\n',x0,sep='')
-    print(signo0)
-
-def menu_ingreso_general(x):
-    limpiar()
+def calculo_espacio_tamaño(z,v,w) -> int:
+    x = calculo_par(z)
     if x == True:
-        y = 'INGRESO'
+        n = z // 2
+        if(n*2) + v == w:
+            return n, n
     else:
-        y = 'MODIFICACION'
-    print(signo0)
-    print(x0,signo00,y,' DE DATOS\n','|',signo00,'SELECCIONE UNA OPCION:',x0,signo00,'1  COSTOS DIRECTOS\n','|',signo00,
-          '2  COSTOS INDIRECTOS\n',x0,sep='')
-    print(signo0)
+        n = z // 2
+        y = z - n
+        if (n + y) + v == w:
+            return y,n
 
-def menu_ingreso_costos_directos():
-    limpiar()
-    print(signo0)
-    print(x0,'\n|',signo00,'COSTOS DIRECTOS\n','|',signo00,'SELECCIONE UNA OPCION:\n','|\n|',signo00,
-          '1   COSTOS DE VIAJES\n','|',signo00,'2   INFORMACION DE VEHICULOS\n','|',signo00,'3   SEGUROS\n',x0,sep='')
-    print(signo0)
 
-def menu_ingreso_costos_indirectos():
-    limpiar()
-    print(signo0)
-    print(x0,'\n|',signo00,'COSTOS INDIRECTOS\n','|',signo00,'SELECCIONE UNA OPCION:\n','|\n|',signo00,
-          '1   GASTOS ADMINISTRATIVOS\n','|',signo00,'2   PEAJES\n','|',signo00,'3   ENERGIA\n',x0,sep='')
-    print(signo0)
+# ----------- rango de 90 columnas -----------------
+def cantidad_espacios_venta(z) -> str:
+    a = ''
+    for i in range(z):
+        a += ' '
+    return a
 
-#----------------------------------------------------------------------
-#------------ variables Necesarias ----------------------------
-ancho, altura = tamaño() #definimos el ancho y la altura
-signo0 = tamaño0(ancho) #cantidad de apostrofe
-signo00 = tamaño00(signo0) #cantidad de espacios
+def cantidad_apostrofe(z) -> str:
+    if z == False:
+        a = ''
+        for i in range(90):
+            a += '-'
+        return a
+    else:
+        a = ''
+        for i in range(110):
+            a += '-'
+        return a
+
+def calculo_tamaño(q,a,b) -> str:
+    if q == False:
+        if len(a) + len(b) < 90:
+            z = 90 - (len(a) + len(b))
+            z = cantidad_espacios_venta(z)
+        w = a + z + b
+        return w
+    else:
+        if len(a) + len(b) < 110:
+            z = 110 - (len(a) + len(b))
+            z = cantidad_espacios_venta(z)
+        w = a + z + b
+        return w
+
+def calculo_tamaño0(q,a,b,c) -> str:
+    if q == False:
+        if len(a) + len(b) + len(c) < 90:
+            k = (len(a) + len(b) + len(c))
+            z = 90 - k
+            f ,g = calculo_espacio_tamaño(z,k,90)
+            v = cantidad_espacios_venta(g)
+            y = cantidad_espacios_venta(f)
+        w = a + y + b + v + c
+        return w
+    else:
+        if len(a) + len(b) < 110:
+            k = (len(a) + len(b) + len(c))
+            z = 110 - k
+            f, g = calculo_espacio_tamaño(z,k,110)
+            v = cantidad_espacios_venta(g)
+            y = cantidad_espacios_venta(f)
+        w = a + y + b + v + c
+        return w
+    
+def relleno_n(q,x) -> str:
+    for i in range(x):
+        print(calculo_tamaño(q,'|','|'))
